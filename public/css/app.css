@@ -10880,3 +10880,18 @@ a.text-dark:focus {
   }
 }
 
+.active-icon {
+  border-radius: 50px;
+  height: 10px;
+  margin-left: 5px;
+  width: 10px;
+}
+
+.active-icon--online {
+  background: green;
+}
+
+.active-icon--offline {
+  background: red;
+}
+

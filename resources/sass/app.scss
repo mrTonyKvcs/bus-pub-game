@@ -1,8 +1,23 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+@import '_mixins';
+
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.active-icon {
+    @include m(online) {
+        background: green;
+    }
+    @include m(offline) {
+        background: red;
+    }
+    border-radius: 50px;
+    height: 10px;
+    margin-left: 5px;
+    width: 10px;
+}
