@@ -21,3 +21,12 @@
     margin-left: 5px;
     width: 10px;
 }
+
+.action-button {
+    font-size: 40px;
+    color: green;
+    &:hover {
+        color: darken(green, 5%);
+        text-decoration: none;
+    }
+}

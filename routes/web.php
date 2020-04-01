@@ -20,3 +20,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//User
+Route::get('notifications', [ 'as' => 'users.notifications', 'uses' => 'UsersController@notifications']);
+
+//Friendable
+Route::get('add-friend/{recipientId}', [ 'as' => 'friendable.add-friend', 'uses' => 'FriendableController@sendFriendRequest' ]);
+Route::get('delete-friend/{recipientId}', [ 'as' => 'friendable.delete-friend', 'uses' => 'FriendableController@deleteFriend' ]);
+Route::get('deny-friend-request/{senderId}', [ 'as' => 'friendable.deny-friend-request', 'uses' => 'FriendableController@denyFriendRequest' ]);
+
+Route::get('confirmation/{senderId}', [ 'as' => 'friendable.confirmation', 'uses' => 'FriendableController@confirmation' ]);
+
