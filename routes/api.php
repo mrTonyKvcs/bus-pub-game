@@ -9,26 +9,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/login', function (Request $request) {
-    $data = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required'
-    ]);
+//User
+Route::post('/registration', 'Api\UsersController@registration');
+Route::post('/login', 'Api\UsersController@login');
+Route::get('/notifications/{id}', 'Api\UsersController@notifications');
 
-    $user = User::where('email', $request->email)->first();
-
-    if (!$user || !Hash::check($request->password, $user->password)) {
-        return response([
-            'message' => ['These credentials do not match our records.']
-        ], 404);
-    }
-
-    $token = $user->createToken('my-app-token')->plainTextToken;
-
-    $response = [
-        'user' => $user,
-        'token' => $token
-    ];
-
-    return response($response, 201);
-});
+//Friendable
+Route::get('add-friend/{senderId}/{recipientId}', 'Api\FriendableController@sendFriendRequest');
+Route::get('confirmation/{recipientId}/{senderId}', 'Api\FriendableController@confirmation');
+Route::get('deny-friend-request/{recipientId}/{senderId}', 'Api\FriendableController@denyFriendRequest');
+Route::get('delete-friend/{userId}/{friendId}', 'Api\FriendableController@deleteFriend');
