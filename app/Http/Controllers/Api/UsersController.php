@@ -12,6 +12,13 @@ use Auth;
 
 class UsersController extends Controller
 {
+    public function allUser()
+    {
+        $users = User::all();
+
+        return response($users, 201);
+    }
+
     public function registration(Request $request)
     {
         $request->validate([

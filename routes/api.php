@@ -9,13 +9,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//User
-Route::post('/registration', 'Api\UsersController@registration');
-Route::post('/login', 'Api\UsersController@login');
-Route::get('/notifications/{id}', 'Api\UsersController@notifications');
+Route::group(['middleware' => 'auth:sanctum', 'namespace' => 'Api'], function() {
+    
+    //User
+    Route::post('/registration', 'UsersController@registration');
+    Route::post('/login', 'UsersController@login');
+    Route::get('/notifications/{id}', 'UsersController@notifications');
+    Route::get('/alluser', 'UsersController@allUser');
 
-//Friendable
-Route::get('add-friend/{senderId}/{recipientId}', 'Api\FriendableController@sendFriendRequest');
-Route::get('confirmation/{recipientId}/{senderId}', 'Api\FriendableController@confirmation');
-Route::get('deny-friend-request/{recipientId}/{senderId}', 'Api\FriendableController@denyFriendRequest');
-Route::get('delete-friend/{userId}/{friendId}', 'Api\FriendableController@deleteFriend');
+    //Friendable
+    Route::post('/add-friend/{senderId}/{recipientId}', 'FriendableController@sendFriendRequest');
+    Route::post('/confirmation/{recipientId}/{senderId}', 'FriendableController@confirmation');
+    Route::post('/deny-friend-request/{recipientId}/{senderId}', 'FriendableController@denyFriendRequest');
+    Route::get('/delete-friend/{userId}/{friendId}', 'FriendableController@deleteFriend');
+});
+
