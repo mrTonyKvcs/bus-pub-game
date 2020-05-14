@@ -14,7 +14,7 @@ class UsersController extends Controller
 {
     public function allUser()
     {
-        $users = User::all();
+        $users = User::with('friendships')->get();
 
         return response($users, 201);
     }

@@ -7,6 +7,7 @@ use Cache;
 use Hootlex\Friendships\Models\Friendship;
 use Hootlex\Friendships\Traits\Friendable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -42,7 +43,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function friendships() {
+        return $this->hasMany(Friendship::class, 'sender_id', 'id');
+    }
+
     //Trait
+
     public function isOnline()
     {
         if (Cache::has('user-is-online-' . $this->id)) {
